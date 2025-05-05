@@ -92,6 +92,9 @@ h4 { font-size: 1.25rem; }
 
 p { margin-bottom: var(--spacing-md);
 color: #343a40; }
+.hero-badge p {
+  color: #ffffff;
+}
 
 a {
   color: var(--color-primary);
