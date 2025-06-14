@@ -1,417 +1,317 @@
-import { useState } from 'react'
-import './App.css'
+import React, { useState, useEffect } from 'react';
+import { Heart, Flower, Star, Phone, Mail, MapPin, Menu, X, Sparkles, Award, Truck, Clock, Shield } from 'lucide-react';
 
-function App() {
-  const [selectedFlower, setSelectedFlower] = useState(null)
-  const [activeCategory, setActiveCategory] = useState('all')
+const RosaLandingPage = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
+  const [isVisible, setIsVisible] = useState({});
 
-  const flowers = [
-    {
-      id: 1,
-      name: "Ramo de Rosas",
-      price: 49.99,
-      image: "https://images.unsplash.com/photo-1519378058457-4c29a0a2efac?auto=format&fit=crop&q=80",
-      description: "Hermoso ramo de rosas rojas frescas, perfecto para expresar amor y pasión.",
-      stock: 10,
-      category: "ramos"
-    },
-    {
-      id: 2,
-      name: "Girasoles",
-      price: 39.99,
-      image: "https://scontent.fuio1-2.fna.fbcdn.net/v/t1.6435-9/71727808_885342851849497_5697343417441320960_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=0b6b33&_nc_ohc=kM1nm8-BwvAQ7kNvwEEH-JB&_nc_oc=AdlDENsUDGsvkHL--H793HQXrPxy3addptQhqrOsdWRG__lyxmlYUXr6PyySJIAmOpMuhEAlfr2sM3OK_k9qRxxc&_nc_zt=23&_nc_ht=scontent.fuio1-2.fna&_nc_gid=AacE6-Td1_pZasHNxaFlkg&oh=00_AfHt3cjSVXVN_DjlEXGOzJbvQTha_x5Co5-E5kJ-UKnd-A&oe=68408B1F",
-      description: "Brillantes girasoles para alegrar cualquier espacio y traer la energía del sol a tu hogar.",
-      stock: 8,
-      category: "individuales"
-    },
-    {
-      id: 3,
-      name: "Orquídeas",
-      price: 59.99,
-      image: "https://la-botanika.com/cdn/shop/articles/PORTADA_-_ORQUIDEAS.jpg?v=1621807238&width=1920",
-      description: "Elegantes orquídeas para ocasiones especiales que representan belleza y refinamiento.",
-      stock: 5,
-      category: "exoticas"
-    },
-    {
-      id: 4,
-      name: "Ramo Primaveral",
-      price: 45.99,
-      image: "https://images.unsplash.com/photo-1457089328109-e5d9bd499191?auto=format&fit=crop&q=80",
-      description: "Combinación de flores primaverales en tonos pastel para celebrar la temporada.",
-      stock: 12,
-      category: "ramos",
-      featured: true
-    },
-    {
-      id: 5,
-      name: "Lirios Blancos",
-      price: 42.99,
-      image: "https://images.unsplash.com/photo-1469259943454-aa100abba749?auto=format&fit=crop&q=80",
-      description: "Lirios blancos que simbolizan pureza y elegancia, ideales para eventos formales.",
-      stock: 3,
-      category: "individuales"
-    },
-    {
-      id: 6,
-      name: "Tulipanes",
-      price: 36.99,
-      image: "https://static.wixstatic.com/media/e50e1f_88b1222fe8e74ba6bc6393d10c381802~mv2.jpg/v1/fill/w_650,h_750,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/e50e1f_88b1222fe8e74ba6bc6393d10c381802~mv2.jpg",
-      description: "Coloridos tulipanes, un toque de distinción y alegría para tu hogar u oficina.",
-      stock: 15,
-      category: "individuales",
-      featured: true
-    }
-  ]
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const rosaVarieties = [
+    { name: "Rosas Rojas Clásicas", description: "Símbolo eterno de amor y pasión.", price: "$15.99", image: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?w=400&h=300&fit=crop", gradient: "from-red-500 to-rose-600" },
+    { name: "Rosas Blancas Premium", description: "Elegancia pura para bodas.", price: "$18.99", image: "https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=400&h=300&fit=crop", gradient: "from-gray-100 to-white" },
+    { name: "Rosas Rosadas Delicadas", description: "Ternura y gratitud en cada pétalo.", price: "$16.99", image: "https://images.unsplash.com/photo-1561181286-d3fee7d55364?w=400&h=300&fit=crop", gradient: "from-pink-400 to-rose-500" },
+    { name: "Rosas Amarillas Radiantes", description: "Alegría y amistad.", price: "$14.99", image: "https://images.unsplash.com/photo-1574684891174-df6b02ab38d7?w=400&h=300&fit=crop", gradient: "from-yellow-400 to-orange-500" },
+
+    { name: "Rosas Naranjas Vibrantes", description: "Energía y entusiasmo.", price: "$17.99", image: "https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=400&h=300&fit=crop", gradient: "from-orange-400 to-red-500" },
+    { name: "Rosas Lavanda Encantadoras", description: "Misterio y sofisticación.", price: "$19.99", image: "https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=400&h=300&fit=crop", gradient: "from-purple-400 to-indigo-500" },
+    { name: "Rosas Bicolor Exóticas", description: "Belleza única con combinaciones sorprendentes.", price: "$20.99", image: "https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=400&h=300&fit=crop", gradient: "from-pink-500 to-yellow-500" },
+    { name: "Rosas Verdes Naturales", description: "Frescura y originalidad.", price: "$22.99", image: "https://images.unsplash.com/photo-1563241527-3004b7be0ffd?w=400&h=300&fit=crop", gradient: "from-green-400 to-teal-500" }
+  ];
+
+  const services = [
+    { title: "Arreglos Personalizados", description: "Composiciones únicas para cada ocasión especial.", icon: Sparkles, color: "from-purple-400 to-pink-500" },
+    { title: "Entrega a Domicilio", description: "Frescura garantizada directa a tu puerta.", icon: Truck, color: "from-green-400 to-emerald-500" },
+    { title: "Eventos Especiales", description: "Decoración completa para celebraciones memorables.", icon: Award, color: "from-blue-400 to-indigo-500" },
+    { title: "Cuidado Expert", description: "Consejos profesionales para mantener la frescura.", icon: Shield, color: "from-rose-400 to-pink-500" }
+  ];
 
   const testimonials = [
-    {
-      id: 1,
-      name: "María García",
-      text: "Las flores de Petal Flow son simplemente espectaculares. Siempre las recomiendo para cualquier ocasión especial.",
-      rating: 5
-    },
-    {
-      id: 2,
-      name: "Carlos Rodríguez",
-      text: "Mi esposa quedó encantada con el catálogo de flores. La variedad y calidad es impresionante.",
-      rating: 5
-    },
-    {
-      id: 3,
-      name: "Laura Martínez",
-      text: "Consulté para un evento corporativo y recibí asesoramiento excelente sobre las mejores opciones florales.",
-      rating: 4
-    }
-  ]
+    { name: "María González", text: "Las rosas más hermosas que he visto. Perfectas para mi boda.", rating: 5, location: "Guayaquil" },
+    { name: "Carlos Mendoza", text: "Excelente servicio y calidad excepcional. Muy recomendado.", rating: 5, location: "Samborondón" },
+    { name: "Ana Rodríguez", text: "Siempre frescos y con el mejor aroma. Mi florería favorita.", rating: 5, location: "Quito" }
+  ];
 
-  const categories = [
-    { id: 'all', name: 'Todas' },
-    { id: 'ramos', name: 'Ramos' },
-    { id: 'individuales', name: 'Flores Individuales' },
-    { id: 'exoticas', name: 'Exóticas' }
-  ]
+  const scrollToSection = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    setIsMenuOpen(false);
+  };
 
-  const handleSubscribe = (e) => {
-    e.preventDefault()
-    alert('¡Gracias por suscribirte! Recibirás nuestro catálogo actualizado y novedades.')
-  }
-
-  const handleContactClick = () => {
-    alert('Para más información, contáctanos en info@petalflow.com o llama al +34 912 345 678')
-  }
-
-  const filteredFlowers = activeCategory === 'all' 
-    ? flowers 
-    : flowers.filter(flower => flower.category === activeCategory)
-
-  const featuredFlowers = flowers.filter(flower => flower.featured)
+  const FloatingElement = ({ children, delay = 0 }) => (
+    <div className={`animate-bounce`} style={{ animationDelay: `${delay}s`, animationDuration: '3s' }}>
+      {children}
+    </div>
+  );
 
   return (
-    <div className="flower-landing">
+    <div className="min-h-screen bg-gradient-to-br from-rose-50 via-pink-50 to-green-50 overflow-x-hidden">
       {/* Navigation */}
-      <nav className="main-nav">
-        <div className="container">
-          <div className="logo">
-            <span className="flower-emoji">🌸</span>
-            <h1>Petal Flow</h1>
+      <nav className="bg-white/95 backdrop-blur-md shadow-lg sticky top-0 z-50 border-b border-rose-100">
+        <div className="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
+          <div className="flex items-center space-x-4">
+            <div className="bg-gradient-to-r from-rose-500 via-pink-500 to-green-500 p-3 rounded-2xl shadow-lg transform hover:scale-110 transition-all duration-300">
+              <Flower className="text-white w-8 h-8" />
+            </div>
+            <div>
+              <span className="font-serif text-2xl bg-gradient-to-r from-rose-600 to-green-600 bg-clip-text text-transparent font-bold">
+                Ever Green Rose Farm
+              </span>
+              <p className="text-xs text-gray-500 font-medium">Cultivando belleza desde 1985</p>
+            </div>
           </div>
           
-          <div className="nav-links">
-            <a href="#home">Inicio</a>
-            <a href="#featured">Destacados</a>
-            <a href="#catalog">Catálogo</a>
-            <a href="#testimonials">Testimonios</a>
-            <a href="#contact">Contacto</a>
+          <div className="hidden md:flex space-x-8">
+            {['inicio', 'nosotros', 'productos', 'servicios', 'testimonios', 'contacto'].map((item) => (
+              <button key={item} onClick={() => scrollToSection(item)} 
+                className="text-gray-700 hover:text-rose-600 font-medium transition-all capitalize relative group py-2">
+                {item}
+                <span className="absolute -bottom-1 left-0 w-0 h-1 bg-gradient-to-r from-rose-500 to-green-500 group-hover:w-full transition-all duration-500 rounded-full"></span>
+              </button>
+            ))}
           </div>
+
+          <button className="md:hidden text-rose-600 p-3 rounded-xl hover:bg-rose-50 transition-all" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
         </div>
+        
+        {isMenuOpen && (
+          <div className="md:hidden bg-white/98 backdrop-blur-md border-t border-rose-100 shadow-lg">
+            <div className="px-2 pt-2 pb-3 space-y-1">
+              {['inicio', 'nosotros', 'productos', 'servicios', 'testimonios', 'contacto'].map((item) => (
+                <button key={item} onClick={() => scrollToSection(item)} 
+                  className="block w-full text-left px-4 py-3 text-gray-700 hover:bg-gradient-to-r hover:from-rose-50 hover:to-pink-50 capitalize rounded-xl transition-all">
+                  {item}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* Hero Section */}
-      <section id="home" className="hero">
-        <div className="container hero-content">
-          <div className="hero-text">
-            <h2>Flores frescas para cada momento especial</h2>
-            <p>
-              Descubre nuestra selección de arreglos florales exclusivos para cualquier ocasión.
-              Consulta nuestro catálogo y déjanos asesorarte para tu evento perfecto.
-            </p>
-            <div className="hero-buttons">
-              <a href="#catalog" className="btn btn-primary">
-                Ver Catálogo
-              </a>
-              <a href="#contact" className="btn btn-outline">
-                Contactar
-              </a>
-            </div>
-          </div>
-          <div className="hero-image">
-            <img 
-              src="https://images.unsplash.com/photo-1567696153798-9111f9cd3d0d?auto=format&fit=crop&q=80" 
-              alt="Flores hermosas"
-            />
-            <div className="hero-badge">
-              <p>Consulta</p>
-              <small>Sin compromiso</small>
-            </div>
-          </div>
+<section id="inicio" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+  <div className="absolute inset-0"></div>
+  <img 
+    src="../src/assets/bg_roses.jpg" 
+    alt="Beautiful rose garden background" 
+    className="absolute inset-0 w-full h-full object-cover"
+    style={{ transform: `translateY(${scrollY * 0.5}px)` }}
+  />
+  {/* Overlay para reducir contraste */}
+  <div className="absolute inset-0 bg-black bg-opacity-20"></div>
+        
+        {/* Floating Elements */}
+        <div className="absolute inset-0">
+          <FloatingElement delay={0}>
+            <div className="absolute top-32 left-16 w-24 h-24 bg-white/10 rounded-full blur-xl"></div>
+          </FloatingElement>
+          <FloatingElement delay={1}>
+            <div className="absolute top-48 right-24 w-32 h-32 bg-rose-300/20 rounded-full blur-2xl"></div>
+          </FloatingElement>
+          <FloatingElement delay={2}>
+            <div className="absolute bottom-32 left-32 w-20 h-20 bg-green-300/20 rounded-full blur-xl"></div>
+          </FloatingElement>
         </div>
-      </section>
-
-      {/* Featured Products */}
-      <section id="featured" className="featured">
-        <div className="container">
-          <h2 className="section-title">Nuestros Destacados</h2>
-          
-          <div className="flower-grid">
-            {featuredFlowers.map((flower) => (
-              <div key={flower.id} className="flower-card featured-card">
-                <div className="flower-image">
-                  <img 
-                    src={flower.image} 
-                    alt={flower.name}
-                  />
-                  <div className="flower-badge">
-                    DESTACADO
-                  </div>
-                  <div className="quick-view-btn" onClick={() => setSelectedFlower(flower)}>
-                    👁️
-                  </div>
-                </div>
-                
-                <div className="flower-details">
-                  <h3>{flower.name}</h3>
-                  <p className="flower-desc">{flower.description}</p>
-                  
-              
-                  <div className="flower-price-action">
-                    <p className="price">Desde ${flower.price}</p>
-                    <button 
-                      onClick={handleContactClick}
-                      className="btn btn-primary"
-                    >
-                      Consultar
-                    </button>
-                  </div>
-                  
-                  <div className="availability-indicator">
-                    <span className="availability-dot in-stock"></span>
-                    <span className="availability-text">
-                      Disponible por encargo
-                    </span>
-                  </div>
-                </div>
-              </div>
-            ))}
+      
+        <div className="relative z-10 text-center text-white px-4 max-w-6xl">
+          <div className="mb-8">
+          </div>
+            <Sparkles className="w-20 h-20 mx-auto mb-6 animate-pulse text-[#ffffff]" />
+          <h1 className="font-serif text-7xl md:text-9xl mb-8 leading-tight drop-shadow-2xl bg-gradient-to-r from-white bg-clip-text ">
+            Ever Green Rose Farm
+          </h1>
+          <p className="text-2xl md:text-4xl mb-12 font-light max-w-4xl mx-auto drop-shadow-xl opacity-95 leading-relaxed">
+            Donde cada rosa cuenta una historia de amor, belleza y tradición familiar
+          </p>
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+            <button onClick={() => scrollToSection('productos')}
+              className="bg-gradient-to-r from-rose-500 to-pink-600 text-white px-12 py-6 rounded-full text-xl font-bold hover:from-rose-600 hover:to-pink-700 transform hover:scale-110 transition-all duration-300 shadow-2xl hover:shadow-rose-500/25">
+              Descubre Nuestras Rosas ✨
+            </button>
+            <button onClick={() => scrollToSection('contacto')}
+              className="bg-white/20 backdrop-blur-sm text-white border-2 border-white/30 px-12 py-6 rounded-full text-xl font-bold hover:bg-white/30 transform hover:scale-110 transition-all duration-300 shadow-2xl">
+              Contáctanos 💐
+            </button>
           </div>
         </div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="about">
-        <div className="container">
-          <div className="about-content">
-            <div className="about-image">
-              <img 
-                src="https://images.unsplash.com/photo-1610878722345-79c5eaf6a48c?auto=format&fit=crop&q=80" 
-                alt="Nuestra floristería"
-              />
+      <section id="nosotros" className="py-32 bg-gradient-to-br from-white via-rose-50/30 to-green-50/30 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-rose-100/20 to-green-100/20"></div>
+        <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-20 items-center relative">
+          <div className="space-y-8">
+            <div className="space-y-4">
+              <span className="text-rose-600 font-semibold text-lg tracking-wider uppercase">Nuestra Historia</span>
+              <h2 className="font-serif text-6xl bg-gradient-to-r from-rose-600 via-pink-600 to-green-600 bg-clip-text text-transparent leading-tight">
+                Tres Generaciones de Excelencia
+              </h2>
             </div>
-            <div className="about-text">
-              <h2>Sobre Petal Flow</h2>
-              <p>
-                Desde 2015, nos dedicamos a crear experiencias florales únicas para nuestros clientes. 
-                Cada arreglo que diseñamos está cuidadosamente elaborado con las flores más frescas 
-                y de la más alta calidad.
-              </p>
-              <p>
-                Nuestro equipo de expertos floristas está capacitado para asesorarte en cualquier 
-                evento o celebración, desde bodas y cumpleaños hasta eventos corporativos.
-              </p>
-              <div className="about-highlights">
-                <div className="highlight">
-                  <span className="highlight-icon">🌿</span>
-                  <h4>Flores Frescas</h4>
-                  <p>Seleccionadas diariamente para garantizar su belleza y durabilidad</p>
+            <p className="text-xl text-gray-700 leading-relaxed">
+              Desde 1985, Ever Green Rose Farm ha sido sinónimo de calidad y tradición. 
+              Tres generaciones perfeccionando el arte de cultivar rosas que transmiten emociones profundas y momentos inolvidables.
+            </p>
+            <div className="grid grid-cols-3 gap-8 pt-8">
+              {[
+                { num: "38+", text: "Años de Experiencia", color: "from-rose-600 to-pink-600", icon: "🏆" },
+                { num: "50k+", text: "Clientes Satisfechos", color: "from-green-600 to-emerald-600", icon: "❤️" },
+                { num: "25+", text: "Variedades de Rosas", color: "from-pink-600 to-rose-600", icon: "🌹" }
+              ].map((stat, i) => (
+                <div key={i} className="text-center bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-xl hover:shadow-2xl transition-all transform hover:scale-105">
+                  <div className="text-3xl mb-2">{stat.icon}</div>
+                  <div className={`text-4xl font-bold bg-gradient-to-r ${stat.color} bg-clip-text text-transparent mb-2`}>{stat.num}</div>
+                  <div className="text-sm text-gray-600 font-medium">{stat.text}</div>
                 </div>
-                <div className="highlight">
-                  <span className="highlight-icon">💐</span>
-                  <h4>Diseño Exclusivo</h4>
-                  <p>Creaciones únicas adaptadas a tus necesidades y gustos</p>
-                </div>
-                <div className="highlight">
-                  <span className="highlight-icon">🎨</span>
-                  <h4>Asesoramiento Personalizado</h4>
-                  <p>Te ayudamos a elegir las flores perfectas para cada ocasión</p>
-                </div>
-              </div>
+              ))}
             </div>
+          </div>
+          <div className="relative">
+            <div className="bg-gradient-to-br from-rose-100 via-pink-50 to-green-100 rounded-3xl p-12 text-center shadow-2xl transform hover:scale-105 transition-all duration-300 border border-white/50">
+              <div className="text-9xl mb-8 animate-bounce">🌹</div>
+              <h3 className="font-serif text-4xl bg-gradient-to-r from-rose-600 to-green-600 bg-clip-text text-transparent mb-6">
+                Tradición Familiar
+              </h3>
+              <p className="text-gray-700 leading-relaxed text-lg">
+                Cada rosa lleva el amor y dedicación de tres generaciones comprometidas con la excelencia y la belleza natural.
+              </p>
+            </div>
+            <div className="absolute -top-8 -right-8 w-24 h-24 bg-rose-200/30 rounded-full blur-xl"></div>
+            <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-green-200/30 rounded-full blur-2xl"></div>
           </div>
         </div>
       </section>
 
-      {/* Catalog */}
-      <section id="catalog" className="catalog">
-        <div className="container">
-          <h2 className="section-title">Nuestro Catálogo</h2>
-          <p className="catalog-intro">
-            Explora nuestra selección de flores y arreglos. Los precios son referenciales y pueden variar según la temporada y disponibilidad.
-            Para consultas específicas, no dudes en contactarnos.
-          </p>
-          
-          {/* Category Filter */}
-          <div className="category-filter">
-            {categories.map((category) => (
-              <button
-                key={category.id}
-                onClick={() => setActiveCategory(category.id)}
-                className={`category-btn ${activeCategory === category.id ? 'active' : ''}`}
-              >
-                {category.name}
-              </button>
-            ))}
+      {/* Products Section */}
+      <section id="productos" className="py-32 bg-gradient-to-br from-gray-50 to-rose-50 relative">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-24">
+            <span className="text-rose-600 font-semibold text-lg tracking-wider uppercase mb-4 block">Nuestras Rosas</span>
+            <h2 className="font-serif text-6xl bg-gradient-to-r from-rose-600 to-green-600 bg-clip-text text-transparent mb-8 leading-tight">
+              Colección Premium
+            </h2>
+            <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
+              Cada variedad cuidadosamente seleccionada para máxima calidad, belleza y durabilidad.
+            </p>
           </div>
-          
-          {/* Product Grid */}
-          <div className="flower-grid">
-            {filteredFlowers.map((flower) => (
-              <div 
-                key={flower.id} 
-                className="flower-card"
-                onClick={() => setSelectedFlower(flower)}
-              >
-                <div className="flower-image">
-                  <img 
-                    src={flower.image} 
-                    alt={flower.name}
-                  />
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+            {rosaVarieties.map((rosa, i) => (
+              <div key={i} className="group bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 overflow-hidden border border-gray-100">
+                <div className="relative overflow-hidden">
+                  <img src={rosa.image} alt={rosa.name} className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500" />
+                  <div className={`absolute inset-0 bg-gradient-to-t ${rosa.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-300`}></div>
                 </div>
-                
-                <div className="flower-details">
-                  <h3>{flower.name}</h3>
-                  <p className="flower-desc">{flower.description}</p>
-                  
-                  <div className="flower-price-action">
-                    <p className="price">Desde ${flower.price}</p>
-                    <button 
-                      onClick={handleContactClick}
-                      className="btn btn-outline"
-                    >
-                      Más Info
-                    </button>
-                  </div>
-                  
-                  <div className="availability-indicator">
-                    <span className="availability-dot in-stock"></span>
-                    <span className="availability-text">
-                      Disponible para consulta
-                    </span>
-                  </div>
+                <div className="p-8 text-center">
+                  <h3 className="font-serif text-xl text-gray-800 mb-4 group-hover:text-rose-600 transition-colors">{rosa.name}</h3>
+                  <p className="text-gray-600 mb-6 text-sm leading-relaxed">{rosa.description}</p>
+                  <div className="text-3xl font-bold bg-gradient-to-r from-rose-600 to-pink-600 bg-clip-text text-transparent mb-6">{rosa.price}</div>
+                  <button className="w-full bg-gradient-to-r from-rose-500 to-pink-500 text-white py-4 rounded-2xl hover:from-rose-600 hover:to-pink-600 transition-all font-semibold shadow-lg hover:shadow-rose-500/25 transform hover:scale-105">
+                    Ver Detalles
+                  </button>
                 </div>
               </div>
             ))}
+          </div>
+
+          <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-12 shadow-2xl border border-white/50">
+            <h3 className="font-serif text-4xl bg-gradient-to-r from-rose-600 to-green-600 bg-clip-text text-transparent mb-12 text-center">
+              ¿Por qué elegir nuestras rosas?
+            </h3>
+            <div className="grid md:grid-cols-3 gap-12">
+              {[
+                { icon: Star, title: "Calidad Premium", text: "Seleccionamos solo las mejores rosas con estándares de calidad internacional.", color: "from-yellow-400 to-orange-500" },
+                { icon: Heart, title: "Cultivadas con Amor", text: "Cuidado personal y atención detallada desde la siembra hasta la entrega.", color: "from-rose-400 to-pink-500" },
+                { icon: Flower, title: "Variedades Únicas", text: "Especies raras y exclusivas que no encontrarás en otros lugares.", color: "from-green-400 to-emerald-500" }
+              ].map((item, i) => (
+                <div key={i} className="text-center group">
+                  <div className={`bg-gradient-to-br ${item.color} w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 transition-transform shadow-lg`}>
+                    <item.icon className="w-10 h-10 text-white" />
+                  </div>
+                  <h4 className="font-bold text-gray-800 mb-4 text-xl">{item.title}</h4>
+                  <p className="text-gray-600 leading-relaxed">{item.text}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* Services Section */}
-      <section id="services" className="services">
-        <div className="container">
-          <h2 className="section-title">Nuestros Servicios</h2>
-          
-          <div className="services-grid">
-            <div className="service-card">
-              <div className="service-icon">💒</div>
-              <h3>Eventos Especiales</h3>
-              <p>Decoración floral para bodas, cumpleaños, aniversarios y otras celebraciones.</p>
-              <button onClick={handleContactClick} className="btn btn-outline">Consultar</button>
-            </div>
-            
-            <div className="service-card">
-              <div className="service-icon">🏢</div>
-              <h3>Eventos Corporativos</h3>
-              <p>Arreglos florales para oficinas, conferencias, inauguraciones y eventos de empresa.</p>
-              <button onClick={handleContactClick} className="btn btn-outline">Consultar</button>
-            </div>
-            
-            <div className="service-card">
-              <div className="service-icon">🌱</div>
-              <h3>Asesoramiento</h3>
-              <p>Servicio de consultoría para seleccionar las flores más adecuadas según la ocasión.</p>
-              <button onClick={handleContactClick} className="btn btn-outline">Consultar</button>
-            </div>
-            
-            <div className="service-card">
-              <div className="service-icon">🎁</div>
-              <h3>Detalles Personalizados</h3>
-              <p>Creación de arreglos florales personalizados para regalos y ocasiones especiales.</p>
-              <button onClick={handleContactClick} className="btn btn-outline">Consultar</button>
+      <section id="servicios" className="py-32 bg-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-rose-50/30 to-green-50/30"></div>
+        <div className="max-w-7xl mx-auto px-4 relative">
+          <div className="text-center mb-24">
+            <span className="text-rose-600 font-semibold text-lg tracking-wider uppercase mb-4 block">Nuestros Servicios</span>
+            <h2 className="font-serif text-6xl bg-gradient-to-r from-rose-600 to-green-600 bg-clip-text text-transparent mb-8 leading-tight">
+              Experiencias Inolvidables
+            </h2>
+            <p className="text-xl text-gray-700 max-w-3xl mx-auto">Más que vender rosas, creamos momentos mágicos y recuerdos duraderos</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-10 mb-20">
+            {services.map((service, i) => (
+              <div key={i} className="group bg-gradient-to-br from-white to-gray-50 rounded-3xl p-10 hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-rose-200">
+                <div className={`bg-gradient-to-br ${service.color} w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg`}>
+                  <service.icon className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="font-serif text-2xl text-gray-800 mb-4 group-hover:text-rose-600 transition-colors">{service.title}</h3>
+                <p className="text-gray-700 leading-relaxed text-lg">{service.description}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <div className="bg-gradient-to-r from-rose-500 via-pink-500 to-green-500 rounded-3xl p-12 text-white shadow-2xl relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-rose-600/20 to-green-600/20"></div>
+              <div className="relative z-10">
+                <h3 className="font-serif text-5xl mb-8">¿Tienes una ocasión especial?</h3>
+                <p className="text-xl mb-10 opacity-95 max-w-3xl mx-auto leading-relaxed">
+                  Permítenos ayudarte a crear el arreglo perfecto para tu momento único e irrepetible
+                </p>
+                <button onClick={() => scrollToSection('contacto')}
+                  className="bg-white text-rose-600 px-12 py-5 rounded-full font-bold text-lg hover:bg-rose-50 transition-all shadow-xl hover:scale-105 transform">
+                  Consulta Personalizada ✨
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Quick View Modal */}
-      {selectedFlower && (
-        <div className="modal-backdrop" onClick={() => setSelectedFlower(null)}>
-          <div className="flower-modal" onClick={(e) => e.stopPropagation()}>
-            <button className="close-modal" onClick={() => setSelectedFlower(null)}>✕</button>
-            
-            <div className="modal-content">
-              <div className="modal-image">
-                <img src={selectedFlower.image} alt={selectedFlower.name} />
-              </div>
-              
-              <div className="modal-details">
-                <h3>{selectedFlower.name}</h3>
-                <p className="modal-price">Desde ${selectedFlower.price}</p>
-                <p className="modal-description">{selectedFlower.description}</p>
-                
-                <div className="modal-info">
-                  <div className="info-item">
-                    <h4>Categoría</h4>
-                    <p>{categories.find(cat => cat.id === selectedFlower.category)?.name || 'General'}</p>
-                  </div>
-                  
-                  <div className="info-item">
-                    <h4>Disponibilidad</h4>
-                    <p>Por encargo</p>
-                  </div>
-                  
-                  <div className="info-item">
-                    <h4>Tiempo de preparación</h4>
-                    <p>24-48 horas</p>
-                  </div>
-                </div>
-                
-                <div className="modal-actions">
-                  <button onClick={handleContactClick} className="btn btn-primary">
-                    Solicitar Información
-                  </button>
-                </div>
-              </div>
-            </div>
+      {/* Testimonials Section */}
+      <section id="testimonios" className="py-32 bg-gradient-to-br from-rose-50 to-green-50">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-24">
+            <span className="text-rose-600 font-semibold text-lg tracking-wider uppercase mb-4 block">Testimonios</span>
+            <h2 className="font-serif text-6xl bg-gradient-to-r from-rose-600 to-green-600 bg-clip-text text-transparent mb-8">
+              Lo que dicen nuestros clientes
+            </h2>
           </div>
-        </div>
-      )}
 
-      {/* Testimonials */}
-      <section id="testimonials" className="testimonials">
-        <div className="container">
-          <h2 className="section-title">Lo que dicen nuestros clientes</h2>
-          
-          <div className="testimonial-grid">
-            {testimonials.map((testimonial) => (
-              <div key={testimonial.id} className="testimonial-card">
-                <div className="stars">
-                  {[...Array(5)].map((_, i) => (
-                    <span key={i} className={i < testimonial.rating ? 'star filled' : 'star'}>
-                      ★
-                    </span>
+          <div className="grid md:grid-cols-3 gap-8">
+            {testimonials.map((testimonial, i) => (
+              <div key={i} className="bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all transform hover:scale-105 border border-gray-100">
+                <div className="flex mb-4">
+                  {[...Array(testimonial.rating)].map((_, j) => (
+                    <Star key={j} className="w-5 h-5 text-yellow-400 fill-current" />
                   ))}
                 </div>
-                <p className="testimonial-text">"{testimonial.text}"</p>
-                <p className="testimonial-author">{testimonial.name}</p>
+                <p className="text-gray-700 mb-6 italic leading-relaxed">"{testimonial.text}"</p>
+                <div className="flex items-center">
+                  <div className="w-12 h-12 bg-gradient-to-r from-rose-400 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                    {testimonial.name.charAt(0)}
+                  </div>
+                  <div>
+                    <p className="font-semibold text-gray-800">{testimonial.name}</p>
+                    <p className="text-sm text-gray-500">{testimonial.location}</p>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -419,152 +319,121 @@ function App() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="contact">
-        <div className="container">
-          <h2 className="section-title">Contáctanos</h2>
-          
-          <div className="contact-content">
-            <div className="contact-info">
-              <div className="contact-item">
-                <div className="contact-icon">📍</div>
-                <div>
-                  <h3>Dirección</h3>
-                  <p>Av. de las Flores 123, Madrid</p>
-                </div>
+      <section id="contacto" className="py-32 bg-gradient-to-br from-white to-rose-50 relative">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-24">
+            <span className="text-rose-600 font-semibold text-lg tracking-wider uppercase mb-4 block">Contacto</span>
+            <h2 className="font-serif text-6xl bg-gradient-to-r from-rose-600 to-green-600 bg-clip-text text-transparent mb-8">
+              Conectemos
+            </h2>
+            <p className="text-xl text-gray-700">Estamos aquí para ayudarte a encontrar las rosas perfectas</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-20">
+            <div className="space-y-8">
+              <div className="space-y-8">
+                {[
+                  { icon: Phone, title: "Teléfono", info: "+593 4 123-4567", color: "from-green-400 to-emerald-500" },
+                  { icon: Mail, title: "Email", info: "info@evergreensrosefarm.com", color: "from-rose-400 to-pink-500" },
+                  { icon: MapPin, title: "Ubicación", info: "Samborondón, Guayas, Ecuador", color: "from-blue-400 to-indigo-500" }
+                ].map((contact, i) => (
+                  <div key={i} className="flex items-center space-x-6 bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all transform hover:scale-105 border border-gray-100">
+                    <div className={`bg-gradient-to-br ${contact.color} p-5 rounded-2xl shadow-lg`}>
+                      <contact.icon className="w-7 h-7 text-white" />
+                    </div>
+                    <div>
+                      <div className="font-bold text-gray-800 text-xl mb-1">{contact.title}</div>
+                      <div className="text-gray-700 text-lg">{contact.info}</div>
+                    </div>
+                  </div>
+                ))}
               </div>
-              
-              <div className="contact-item">
-                <div className="contact-icon">📞</div>
-                <div>
-                  <h3>Teléfono</h3>
-                  <p>+34 912 345 678</p>
-                </div>
-              </div>
-              
-              <div className="contact-item">
-                <div className="contact-icon">✉️</div>
-                <div>
-                  <h3>Email</h3>
-                  <p>info@petalflow.com</p>
-                </div>
-              </div>
-              
-              <div className="contact-item">
-                <div className="contact-icon">🕒</div>
-                <div>
-                  <h3>Horario</h3>
-                  <p>Lunes a Viernes: 9:00 - 19:00</p>
-                  <p>Sábados: 10:00 - 14:00</p>
+
+              <div className="bg-white p-10 rounded-2xl shadow-xl border border-gray-100">
+                <h4 className="font-serif text-3xl text-gray-800 mb-8 flex items-center">
+                  <Clock className="w-8 h-8 text-rose-600 mr-3" />
+                  Horarios de Atención
+                </h4>
+                <div className="space-y-4 text-gray-700">
+                  {[
+                    { day: "Lunes - Viernes:", time: "8:00 AM - 6:00 PM" },
+                    { day: "Sábados:", time: "8:00 AM - 4:00 PM" },
+                    { day: "Domingos:", time: "9:00 AM - 2:00 PM" }
+                  ].map((schedule, i) => (
+                    <div key={i} className="flex justify-between items-center border-b border-gray-100 pb-3">
+                      <span className="text-lg">{schedule.day}</span>
+                      <span className="font-semibold text-rose-600">{schedule.time}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
-            
-            <div className="contact-form-container">
-              <h3>¿Tienes alguna consulta?</h3>
-              <p>Completa el formulario y nos pondremos en contacto contigo lo antes posible.</p>
-              
-              <form className="contact-form">
-                <div className="form-group">
-                  <label htmlFor="name">Nombre</label>
-                  <input type="text" id="name" placeholder="Tu nombre" required />
-                </div>
-                
-                <div className="form-group">
-                  <label htmlFor="email">Email</label>
-                  <input type="email" id="email" placeholder="Tu email" required />
-                </div>
-                
-                <div className="form-group">
-                  <label htmlFor="phone">Teléfono</label>
-                  <input type="tel" id="phone" placeholder="Tu teléfono" />
-                </div>
-                
-                <div className="form-group">
-                  <label htmlFor="message">Mensaje</label>
-                  <textarea id="message" placeholder="¿En qué podemos ayudarte?" rows="4" required></textarea>
-                </div>
-                
-                <button type="submit" className="btn btn-primary">Enviar Consulta</button>
-              </form>
+
+            <div className="bg-white rounded-3xl p-10 shadow-2xl border border-gray-100">
+              <h3 className="font-serif text-4xl text-gray-800 mb-10 text-center">Envíanos un Mensaje</h3>
+              <div className="space-y-6">
+                <input type="text" placeholder="Tu nombre completo"
+                  className="w-full p-5 border-2 border-rose-200 rounded-2xl focus:border-rose-500 focus:outline-none focus:ring-4 focus:ring-rose-200/50 transition-all text-lg" />
+                <input type="email" placeholder="Tu correo electrónico"
+                  className="w-full p-5 border-2 border-rose-200 rounded-2xl focus:border-rose-500 focus:outline-none focus:ring-4 focus:ring-rose-200/50 transition-all text-lg" />
+                <input type="tel" placeholder="Tu número de teléfono"
+                  className="w-full p-5 border-2 border-rose-200 rounded-2xl focus:border-rose-500 focus:outline-none focus:ring-4 focus:ring-rose-200/50 transition-all text-lg" />
+                <textarea placeholder="¿En qué podemos ayudarte? Compártenos los detalles de tu ocasión especial..." rows="5"
+                  className="w-full p-5 border-2 border-rose-200 rounded-2xl focus:border-rose-500 focus:outline-none focus:ring-4 focus:ring-rose-200/50 resize-vertical transition-all text-lg"></textarea>
+                <button className="w-full bg-gradient-to-r from-rose-500 to-pink-500 text-white py-5 rounded-2xl hover:from-rose-600 hover:to-pink-600 transition-all font-bold text-xl shadow-xl hover:shadow-rose-500/25 transform hover:scale-105">
+                  Enviar Mensaje 💕
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="cta">
-        <div className="container">
-          <h2>¿Quieres conocer más sobre nuestras flores?</h2>
-          <p>Suscríbete para recibir nuestro catálogo digital y estar al día de las novedades florales de temporada.</p>
-          
-          <form className="subscribe-form" onSubmit={handleSubscribe}>
-            <input 
-              type="email" 
-              placeholder="Tu correo electrónico" 
-              required
-            />
-            <button 
-              type="submit" 
-              className="btn btn-light"
-            >
-              Solicitar Catálogo
-            </button>
-          </form>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="footer">
-        <div className="container">
-          <div className="footer-grid">
-            <div className="footer-col">
-              <h3>Petal Flow</h3>
-              <p>Llevando belleza natural a tu hogar desde 2015.</p>
-              <div className="social-links">
-                <a href="#" aria-label="Facebook">📱</a>
-                <a href="#" aria-label="Instagram">📸</a>
-                <a href="#" aria-label="Pinterest">🔖</a>
-              </div>
+      <footer className="bg-gradient-to-r from-gray-900 via-black to-gray-900 text-white py-20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-rose-900/10 to-green-900/10"></div>
+        <div className="max-w-7xl mx-auto px-4 text-center relative z-10">
+          <div className="flex items-center justify-center space-x-4 mb-8">
+            <div className="bg-gradient-to-r from-rose-500 to-green-500 p-4 rounded-2xl shadow-xl">
+              <Flower className="w-10 h-10 text-white" />
             </div>
-            
-            <div className="footer-col">
-              <h3>Enlaces Rápidos</h3>
-              <ul>
-                <li><a href="#home">Inicio</a></li>
-                <li><a href="#about">Sobre Nosotros</a></li>
-                <li><a href="#catalog">Catálogo</a></li>
-                <li><a href="#services">Servicios</a></li>
-                <li><a href="#contact">Contacto</a></li>
-              </ul>
-            </div>
-            
-            <div className="footer-col">
-              <h3>Servicios</h3>
-              <ul>
-                <li>Eventos Especiales</li>
-                <li>Eventos Corporativos</li>
-                <li>Asesoramiento Floral</li>
-                <li>Arreglos Personalizados</li>
-              </ul>
-            </div>
-            
-            <div className="footer-col">
-              <h3>Horario de Atención</h3>
-              <ul>
-                <li>Lunes a Viernes: 9:00 - 19:00</li>
-                <li>Sábados: 10:00 - 14:00</li>
-                <li>Domingos: Cerrado</li>
-              </ul>
+            <div className="text-left"></div>
+            <div>
+              <span className="font-serif text-3xl bg-gradient-to-r from-rose-600 to-green-600 bg-clip-text text-transparent font-bold">
+                Ever Green Rose Farm
+              </span>
+              <p className="text-sm text-gray-300">Cultivando belleza desde 1985</p>
             </div>
           </div>
-          
-          <div className="copyright">
-            <p>&copy; {new Date().getFullYear()} Petal Flow. Todos los derechos reservados.</p>
+          <div className="text-gray-400 mb-12">
+            <p className="text-sm">© 2023 Ever Green Rose Farm. Todos los derechos reservados.</p>
+            <p className="text-xs">Diseñado con amor y pasión por la naturaleza</p>
+          </div>
+          <div className="flex justify-center space-x-6">
+            <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
+              <Heart className="w-6 h-6" />
+            </a>
+            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
+              <Flower className="w-6 h-6" />
+            </a>
+            <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
+              <Star className="w-6 h-6" />
+            </a>
+            <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
+              <Phone className="w-6 h-6" />
+            </a>
+            <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
+              <Mail className="w-6 h-6" />
+            </a>   
+          </div>
+          <div className="mt-12 text-gray-500 text-xs">
+            <p>Hecho con ❤️ por [Tu Nombre]</p>
+            <p>Inspirado en la belleza de la naturaleza y el amor por las flores</p>
           </div>
         </div>
       </footer>
     </div>
-  )
-}
+  );    
 
-export default App
+}
+export default RosaLandingPage;
