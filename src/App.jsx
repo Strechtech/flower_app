@@ -98,7 +98,7 @@ const RosaLandingPage = () => {
 <section id="inicio" className="relative min-h-screen flex items-center justify-center overflow-hidden">
   <div className="absolute inset-0"></div>
   <img 
-    src="../src/assets/bg_roses.jpg" 
+    src="assets/bg_roses.jpg" 
     alt="Beautiful rose garden background" 
     className="absolute inset-0 w-full h-full object-cover"
     style={{ transform: `translateY(${scrollY * 0.5}px)` }}
