@@ -1,15 +1,15 @@
 # Ever Green Rose Farm
 
-Sitio web de presentación para una floristería especializada en rosas. La aplicación está construida con React y Vite e incluye una página adaptable con secciones de historia, productos, servicios, testimonios y contacto.
+Sitio web adaptable para presentar la finca, sus variedades de rosas y servicios, y facilitar el contacto con clientes. La interfaz está construida con React y Vite.
 
 ## Requisitos
 
-- Node.js
-- pnpm `12.8.1` (declarado en `package.json`)
+- Node.js compatible con la versión de pnpm definida en el proyecto.
+- Corepack para activar pnpm `12.8.1` (versión fijada en `package.json`).
 
 ## Instalación y desarrollo
 
-Activa pnpm mediante Corepack, incluido con Node.js:
+Desde la raíz del repositorio:
 
 ```sh
 corepack enable
@@ -17,39 +17,83 @@ pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-Vite mostrará en la terminal la dirección local donde puedes abrir la aplicación.
+Vite mostrará la dirección local para abrir el sitio. Para detener el servidor, usa `Ctrl+C`.
 
-## Comandos disponibles
+## Comandos
 
 | Comando | Descripción |
 | --- | --- |
 | `pnpm dev` | Inicia el servidor de desarrollo con recarga en caliente. |
-| `pnpm build` | Genera la versión de producción en `dist/`. |
-| `pnpm preview` | Sirve localmente la compilación de producción. |
-| `pnpm lint` | Ejecuta ESLint para revisar el proyecto. |
+| `pnpm build` | Genera los archivos de producción en `dist/`. |
+| `pnpm preview` | Previsualiza localmente la compilación de producción. |
+| `pnpm lint` | Ejecuta ESLint. |
 
 ## Tecnologías
 
 - React 19
 - Vite 6
 - Lucide React
-- ESLint
+- CSS responsive propio
+- ESLint 9
+- pnpm `12.8.1`
 
-## Estructura principal
+## Arquitectura actual
 
-- `src/App.jsx`: composición de la página.
-- `src/features/landing/components/`: cabecera, secciones, formulario de contacto y pie.
-- `src/features/landing/data/content.js`: contenido y datos presentacionales de la landing.
-- `src/index.css`: estilos globales, componentes visuales y reglas responsive.
-- `public/assets/`: imágenes locales utilizadas por el sitio.
-- `vite.config.js`, `eslint.config.js` y `pnpm-workspace.yaml`: configuración de herramientas.
+Es una aplicación frontend de una sola página, organizada por funcionalidad. `App.jsx` compone las secciones y cada componente se ocupa de una parte de la experiencia. No se incorporó arquitectura hexagonal porque actualmente no hay backend, persistencia ni integraciones que requieran puertos y adaptadores.
 
-La interfaz está organizada por funcionalidad de frontend; no se introduce arquitectura hexagonal porque el proyecto no contiene backend, persistencia ni adaptadores externos propios. Los datos de productos y secciones están separados de su presentación para facilitar cambios y futuras integraciones.
+```text
+src/
+├── App.jsx
+├── index.css
+├── main.jsx
+└── features/
+    └── landing/
+        ├── components/
+        │   ├── AboutSection.jsx
+        │   ├── ContactSection.jsx
+        │   ├── HeroSection.jsx
+        │   ├── ProductsSection.jsx
+        │   ├── SectionHeading.jsx
+        │   ├── ServicesSection.jsx
+        │   ├── SiteFooter.jsx
+        │   ├── SiteHeader.jsx
+        │   └── TestimonialsSection.jsx
+        └── data/
+            └── content.js
+public/
+└── assets/
+```
 
-El formulario de contacto abre el cliente de correo del visitante con un borrador dirigido a la dirección publicada. No envía ni almacena mensajes en un servidor.
+- `src/App.jsx`: composición y orden de las secciones.
+- `src/features/landing/components/`: cabecera y componentes visuales de la landing.
+- `src/features/landing/data/content.js`: contenido estático de productos, servicios, horarios y contacto.
+- `src/index.css`: tokens visuales, estilos y reglas responsive.
+- `public/assets/`: imágenes servidas desde el propio sitio.
+- `pnpm-workspace.yaml`: política explícita de scripts permitidos durante la instalación.
+
+El formulario de contacto prepara un mensaje `mailto:` con los datos ingresados. El visitante debe enviarlo desde su cliente de correo; la aplicación no recibe ni almacena mensajes.
 
 ## Dependencias y seguridad
 
-El proyecto usa pnpm con una versión fijada y `pnpm-lock.yaml` para reproducir las versiones exactas de las dependencias. pnpm mantiene un árbol de dependencias aislado, lo que ayuda a evitar que el código importe accidentalmente paquetes transitivos que no están declarados directamente. Usa `pnpm install --frozen-lockfile` para instalar sin modificar el lockfile; no mezcles gestores ni regeneres el archivo de bloqueo con npm.
+- `pnpm-lock.yaml` fija el árbol resuelto para instalaciones reproducibles. Usa `pnpm install --frozen-lockfile` en CI y despliegues.
+- pnpm mantiene las dependencias directas separadas de las transitivas, ayudando a detectar importaciones accidentales de paquetes no declarados.
+- Los scripts de instalación de dependencias se restringen por defecto; `pnpm-workspace.yaml` autoriza `esbuild`, requerido por Vite.
+- `.gitignore` excluye archivos de entorno, dependencias, salidas de compilación, caches y reportes locales. Los archivos `.env.example` pueden versionarse; no incluyas credenciales reales.
 
-Los scripts de instalación de dependencias están restringidos por defecto; `pnpm-workspace.yaml` permite explícitamente solo el script de `esbuild`, requerido por Vite para compilar.
+## Pendientes y siguientes pasos
+
+Estas ideas todavía no están implementadas:
+
+- [ ] **Definir alcance de blockchain antes de elegir tecnología.** Aclarar qué dato o proceso debe verificarse (por ejemplo, trazabilidad de origen de un lote). No almacenar datos personales, secretos comerciales ni información sensible en una cadena pública. Comparar primero si una base de datos convencional y un registro de auditoría resuelven el caso con menor coste y complejidad.
+- [ ] **Definir el caso de uso de IA.** Posibles opciones: asistente para orientar la selección de flores o recomendaciones de arreglos. Determinar proveedor/modelo, datos permitidos, presupuesto, controles de privacidad y revisión humana. Las claves y llamadas al modelo deben residir en un backend, nunca en el bundle público del navegador.
+- [ ] **Elegir hosting y estrategia de despliegue.** Comparar Cloudflare Pages/Workers con Google Cloud según las necesidades concretas:
+  - Cloudflare puede ser adecuado para publicar un sitio estático con CDN y añadir funciones ligeras en Workers.
+  - Google Cloud ofrece opciones para una API, contenedores y servicios gestionados cuando se requiera backend o integración con servicios de su ecosistema.
+  - Comparar coste, región y residencia de datos, facilidad de operación, funciones de backend, dominios, observabilidad y proceso de CI/CD. No hay una elección tomada todavía.
+- [ ] **Implementar una API** si el formulario necesita enviar y almacenar consultas o si se añaden integraciones de IA/blockchain. Añadir validación, protección contra abuso, gestión segura de secretos y política de retención de datos.
+- [ ] **Automatizar CI/CD** para instalar con lockfile congelado, ejecutar lint y build en cada cambio, y desplegar a un entorno de prueba antes de producción.
+- [ ] **Completar criterios de producción:** pruebas automatizadas, analítica respetuosa con la privacidad, revisión de accesibilidad, dominio, metadatos/imagen social y monitorización.
+
+### Criterio recomendado para decidir plataforma
+
+Mantener primero el sitio como contenido estático si solo necesita presentar la finca. Elegir Cloudflare Pages si se priorizan publicación sencilla, CDN global y funciones pequeñas; elegir Google Cloud si el producto requiere una API/servicios gestionados y el equipo acepta administrar una infraestructura más amplia. Confirmar los requisitos de backend, privacidad, tráfico y presupuesto antes de comprometer la arquitectura o migrar el despliegue.
