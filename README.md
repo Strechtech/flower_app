@@ -2,6 +2,8 @@
 
 Sitio web adaptable para presentar la finca, sus variedades de rosas y servicios, y facilitar el contacto con clientes. La interfaz está construida con React y Vite.
 
+![Vista previa de Ever Green Rose Farm](./public/assets/readme-preview.png)
+
 ## Requisitos
 
 - Node.js compatible con la versión de pnpm definida en el proyecto.
