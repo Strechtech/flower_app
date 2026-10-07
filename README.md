@@ -1,13 +1,55 @@
-# React + Vite
+# Ever Green Rose Farm
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Sitio web de presentación para una floristería especializada en rosas. La aplicación está construida con React y Vite e incluye una página adaptable con secciones de historia, productos, servicios, testimonios y contacto.
 
-Currently, two official plugins are available:
+## Requisitos
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Node.js
+- pnpm `12.8.1` (declarado en `package.json`)
 
-## Expanding the ESLint configuration
+## Instalación y desarrollo
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-# flower_app
+Activa pnpm mediante Corepack, incluido con Node.js:
+
+```sh
+corepack enable
+pnpm install --frozen-lockfile
+pnpm dev
+```
+
+Vite mostrará en la terminal la dirección local donde puedes abrir la aplicación.
+
+## Comandos disponibles
+
+| Comando | Descripción |
+| --- | --- |
+| `pnpm dev` | Inicia el servidor de desarrollo con recarga en caliente. |
+| `pnpm build` | Genera la versión de producción en `dist/`. |
+| `pnpm preview` | Sirve localmente la compilación de producción. |
+| `pnpm lint` | Ejecuta ESLint para revisar el proyecto. |
+
+## Tecnologías
+
+- React 19
+- Vite 6
+- Lucide React
+- ESLint
+
+## Estructura principal
+
+- `src/App.jsx`: composición de la página.
+- `src/features/landing/components/`: cabecera, secciones, formulario de contacto y pie.
+- `src/features/landing/data/content.js`: contenido y datos presentacionales de la landing.
+- `src/index.css`: estilos globales, componentes visuales y reglas responsive.
+- `public/assets/`: imágenes locales utilizadas por el sitio.
+- `vite.config.js`, `eslint.config.js` y `pnpm-workspace.yaml`: configuración de herramientas.
+
+La interfaz está organizada por funcionalidad de frontend; no se introduce arquitectura hexagonal porque el proyecto no contiene backend, persistencia ni adaptadores externos propios. Los datos de productos y secciones están separados de su presentación para facilitar cambios y futuras integraciones.
+
+El formulario de contacto abre el cliente de correo del visitante con un borrador dirigido a la dirección publicada. No envía ni almacena mensajes en un servidor.
+
+## Dependencias y seguridad
+
+El proyecto usa pnpm con una versión fijada y `pnpm-lock.yaml` para reproducir las versiones exactas de las dependencias. pnpm mantiene un árbol de dependencias aislado, lo que ayuda a evitar que el código importe accidentalmente paquetes transitivos que no están declarados directamente. Usa `pnpm install --frozen-lockfile` para instalar sin modificar el lockfile; no mezcles gestores ni regeneres el archivo de bloqueo con npm.
+
+Los scripts de instalación de dependencias están restringidos por defecto; `pnpm-workspace.yaml` permite explícitamente solo el script de `esbuild`, requerido por Vite para compilar.
