@@ -80,20 +80,26 @@ El formulario de contacto prepara un mensaje `mailto:` con los datos ingresados.
 - Los scripts de instalación de dependencias se restringen por defecto; `pnpm-workspace.yaml` autoriza `esbuild`, requerido por Vite.
 - `.gitignore` excluye archivos de entorno, dependencias, salidas de compilación, caches y reportes locales. Los archivos `.env.example` pueden versionarse; no incluyas credenciales reales.
 
+## Dirección del proyecto
+
+La dirección inicial será una solución clásica: si el sitio evoluciona a tienda, se añadirá un backend para gestionar cuentas, roles, catálogo, inventario y pedidos, integrado con una pasarela de pagos mediante su API. **Web3/blockchain queda fuera del alcance actual**; se reconsiderará únicamente si surge un requisito técnico concreto que lo justifique.
+
 ## Pendientes y siguientes pasos
 
-Estas ideas todavía no están implementadas:
+Estas funcionalidades todavía no están implementadas:
 
-- [ ] **Definir alcance de blockchain antes de elegir tecnología.** Aclarar qué dato o proceso debe verificarse (por ejemplo, trazabilidad de origen de un lote). No almacenar datos personales, secretos comerciales ni información sensible en una cadena pública. Comparar primero si una base de datos convencional y un registro de auditoría resuelven el caso con menor coste y complejidad.
-- [ ] **Definir el caso de uso de IA.** Posibles opciones: asistente para orientar la selección de flores o recomendaciones de arreglos. Determinar proveedor/modelo, datos permitidos, presupuesto, controles de privacidad y revisión humana. Las claves y llamadas al modelo deben residir en un backend, nunca en el bundle público del navegador.
+- [ ] **Definir el alcance comercial de la tienda.** Precisar catálogo, variantes, inventario, envíos, devoluciones y flujo de pedidos antes de implementar compras.
+- [ ] **Diseñar el backend clásico** para autenticación, roles de administración, catálogo, inventario y pedidos cuando se confirme el alcance de la tienda.
+- [ ] **Integrar una pasarela de pagos** mediante su API y checkout alojado. Confirmar que el proveedor opere en los países y medios de pago requeridos; validar pagos en el servidor mediante webhooks firmados. No almacenar datos de tarjetas.
+- [ ] **Definir el caso de uso de IA.** Elegir un problema concreto y medible (por ejemplo, análisis de calidad de flores o pronóstico de demanda), identificar datos disponibles y evaluar precisión, privacidad, coste y revisión humana. Las claves y llamadas al modelo deben residir en el backend, nunca en el bundle público del navegador.
 - [ ] **Elegir hosting y estrategia de despliegue.** Comparar Cloudflare Pages/Workers con Google Cloud según las necesidades concretas:
   - Cloudflare puede ser adecuado para publicar un sitio estático con CDN y añadir funciones ligeras en Workers.
   - Google Cloud ofrece opciones para una API, contenedores y servicios gestionados cuando se requiera backend o integración con servicios de su ecosistema.
   - Comparar coste, región y residencia de datos, facilidad de operación, funciones de backend, dominios, observabilidad y proceso de CI/CD. No hay una elección tomada todavía.
-- [ ] **Implementar una API** si el formulario necesita enviar y almacenar consultas o si se añaden integraciones de IA/blockchain. Añadir validación, protección contra abuso, gestión segura de secretos y política de retención de datos.
+- [ ] **Implementar envío de consultas de contacto** si se requiere recibirlas y gestionarlas desde la plataforma; actualmente el formulario solo prepara un correo `mailto:`.
 - [ ] **Automatizar CI/CD** para instalar con lockfile congelado, ejecutar lint y build en cada cambio, y desplegar a un entorno de prueba antes de producción.
 - [ ] **Completar criterios de producción:** pruebas automatizadas, analítica respetuosa con la privacidad, revisión de accesibilidad, dominio, metadatos/imagen social y monitorización.
 
 ### Criterio recomendado para decidir plataforma
 
-Mantener primero el sitio como contenido estático si solo necesita presentar la finca. Elegir Cloudflare Pages si se priorizan publicación sencilla, CDN global y funciones pequeñas; elegir Google Cloud si el producto requiere una API/servicios gestionados y el equipo acepta administrar una infraestructura más amplia. Confirmar los requisitos de backend, privacidad, tráfico y presupuesto antes de comprometer la arquitectura o migrar el despliegue.
+Mantener primero el sitio como contenido estático mientras solo presente la finca. Si se implementa tienda, elegir la plataforma después de definir los requisitos de backend, pagos, privacidad, tráfico y presupuesto. Cloudflare puede encajar con un frontend estático y una API pequeña; Google Cloud puede encajar si se necesitan más servicios gestionados. Web3 no forma parte de esta decisión inicial.
